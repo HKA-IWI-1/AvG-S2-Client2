@@ -43,7 +43,10 @@ logging:
     console: info
     file: info
 jms:
-  testQueue: "testQueue"
+  testQueueReceive: "testQueueReceive" # multicast addresse, anycast queue
+  testQueueSend: "testQueueSend" # multicast addresse, anycast queue
+  #testQueueSend: "testQueueReceive"  # So sendet der MS auf demselben Channel, auf dem er auch lauscht.
+                                      # Wir simulieren also den Sender und den Empfänger.
 ---
 # --------------------------------------------------------
 # P r o f i l e   " d e v "

@@ -17,32 +17,26 @@
  *
  */
 
-package de.hka_iwi_1.avg_s2_client.controller;
+package de.hka_iwi_1.avg_s2_client.service;
 
-//import de.hka_iwi_1.avg_s2_client.service.ProducerService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+//import lombok.RequiredArgsConstructor;
+//import lombok.extern.slf4j.Slf4j;
+//import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.jms.core.JmsTemplate;
+//import org.springframework.stereotype.Service;
+//
+//@Service
+//@Slf4j
+//@RequiredArgsConstructor
+public class ProducerService {
 
-@RestController
-@RequestMapping("/test")
-@RequiredArgsConstructor
-@Slf4j
-public class Controller {
-
-    //private final ProducerService producerService;
-
-    // z.B. http://localhost:8080/test/someString
-    @GetMapping(
-            path = "{content}"
-            , produces = "application/json"
-    )
-    public String getTest(
-            @PathVariable final String content
-    ) {
-        log.debug("getTest content={}", content);
-        //producerService.sendToTestQueue(content);
-        return "{ content:\"" + content + "\", }";
-    }
-
+//    private final JmsTemplate jmsTemplate;
+//
+//    @Value("${jms.testQueueSend}")
+//    String jmsQueue;
+//
+//    public void sendToTestQueue(String message) {
+//        log.info("sendToTestQueue: {}", message);
+//        jmsTemplate.convertAndSend(jmsQueue, message);
+//    }
 }
