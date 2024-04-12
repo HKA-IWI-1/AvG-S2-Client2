@@ -42,6 +42,8 @@ logging:
   threshold:
     console: info
     file: info
+jms:
+  testQueue: "testQueue"
 ---
 # --------------------------------------------------------
 # P r o f i l e   " d e v "
