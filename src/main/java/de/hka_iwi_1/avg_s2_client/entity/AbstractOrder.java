@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2024 - present Florian Sauer
+ * Copyright (c) 2024 - present Florian Sauer
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the “Software”), to deal in the Software without restriction, including without limitation the
@@ -17,33 +17,31 @@
  *
  */
 
-package de.hka_iwi_1.avg_s2_client.controller;
+package de.hka_iwi_1.avg_s2_client.entity;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import java.util.UUID;
 
-/**
- * Handler for generic exceptions.
- */
-@ControllerAdvice
-@Slf4j
-class CommonExceptionHandler {
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
+public abstract class AbstractOrder {
 
-    @ExceptionHandler
-    @ResponseStatus(NOT_FOUND)
-    void onNotFound(final NotFoundException ex) {
-        log.debug("onNotFound: {}", ex.getMessage());
-    }
+    // created by client
+    private UUID purchaseId;
 
-// todo: pfade ohne controller behandeln
-//    @ExceptionHandler(value = Exception.class)
-//    @ResponseStatus(NOT_FOUND)
-//    void onException(final Exception ex) {
-//        log.debug("onException: {}", ex.getMessage());
-//    }
+    private UUID clientId;
 
+    private Exchange exchange;
+
+    private Share share;
+
+    private int amount;
+
+    private OrderStatus status;
 }

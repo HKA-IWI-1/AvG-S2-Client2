@@ -17,32 +17,18 @@
  *
  */
 
-package de.hka_iwi_1.avg_s2_client.controller;
+package de.hka_iwi_1.avg_s2_client.repository;
 
-//import de.hka_iwi_1.avg_s2_client.service.ProducerService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import de.hka_iwi_1.avg_s2_client.entity.AbstractOrder;
 
-@RestController
-@RequestMapping("/test")
-@RequiredArgsConstructor
-@Slf4j
-public class Controller {
+import java.util.List;
 
-    //private final ProducerService producerService;
+public class DB {
 
-    // z.B. http://localhost:8080/test/someString
-    @GetMapping(
-            path = "{content}"
-            , produces = "application/json"
-    )
-    public String getTest(
-            @PathVariable final String content
-    ) {
-        log.debug("getTest content={}", content);
-        //producerService.sendToTestQueue(content);
-        return "{ content:\"" + content + "\", }";
+    static final List<AbstractOrder> ORDERS;
+
+    // todo: add Collection
+
+    private DB() {
     }
-
 }

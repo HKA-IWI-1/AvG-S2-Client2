@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023-2024 - present Florian Sauer
+ * Copyright (c) 2024 - present Florian Sauer
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the “Software”), to deal in the Software without restriction, including without limitation the
@@ -17,18 +17,32 @@
  *
  */
 
-package de.hka_iwi_1.avg_s2_client.controller;
+package de.hka_iwi_1.avg_s2_client.webSocket;
 
-import lombok.Getter;
+//import de.hka_iwi_1.avg_s2_client.service.ProducerService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
-/**
- * RuntimeException.
- */
-@Getter
-public final class NotFoundException extends RuntimeException {
+@RestController
+@RequestMapping("/test")
+@RequiredArgsConstructor
+@Slf4j
+public class Controller {
 
-    public NotFoundException(String message) {
-        super(message);
+    //private final ProducerService producerService;
+
+    // z.B. http://localhost:8080/test/someString
+    @GetMapping(
+            path = "{content}"
+            , produces = "application/json"
+    )
+    public String getTest(
+            @PathVariable final String content
+    ) {
+        log.debug("getTest content={}", content);
+        //producerService.sendToTestQueue(content);
+        return "{ content:\"" + content + "\", }";
     }
 
 }
