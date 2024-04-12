@@ -24,6 +24,11 @@ server:
     whitelabel.enabled: false
 spring:
   application.name: AvG-S2-Client
+  artemis:
+    mode: native
+    broker-url: tcp://127.0.0.1:61616
+    user: artemis
+    password: p
 logging:
   file:
     name: /tmp/application.log
