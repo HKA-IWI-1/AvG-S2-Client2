@@ -23,9 +23,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Controller for accepting GET requests to parse the iCal file.
- */
 @RestController
 @RequestMapping("/test")
 @RequiredArgsConstructor
