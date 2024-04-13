@@ -32,7 +32,7 @@ import static de.hka_iwi_1.avg_s2_client.webSocket.StockPriceController.exchange
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-    public static final String brokerEndpoint = "stock-broker";
+    public static final String brokerEndpoint = "/stock-broker";
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
@@ -42,6 +42,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint(brokerEndpoint);
+        registry.addEndpoint(brokerEndpoint).setAllowedOriginPatterns("*");
     }
 }
