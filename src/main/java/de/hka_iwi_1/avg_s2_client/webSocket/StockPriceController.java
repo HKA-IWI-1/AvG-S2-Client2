@@ -19,9 +19,6 @@
 
 package de.hka_iwi_1.avg_s2_client.webSocket;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import de.hka_iwi_1.avg_s2_client.entity.Exchange;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
@@ -33,8 +30,6 @@ import org.springframework.stereotype.Controller;
 @RequiredArgsConstructor
 public class StockPriceController {
 
-    private final ObjectMapper mapper;
-
     public static final String exchangeServicePrefix = "/exchangeService";
 
     public static final String wsStockPrices = exchangeServicePrefix + "/receiveStockPrices";
@@ -44,10 +39,10 @@ public class StockPriceController {
      *
      * @param jsonData Serialized JSON-String containing stock data.
      */
-    @JmsListener(destination = "${jms.publishStockPrices}")
+    @JmsListener(destination = "${jms.stocks.updates.all}")
     @SendTo(wsStockPrices)
-    private Exchange receiveStockData(String jsonData) throws JsonProcessingException {
-        log.info("receiveStockPrices: {}", jsonData);
-        return mapper.readValue(jsonData, Exchange.class);
+    private String receiveStockData(String jsonData) {
+        log.debug("receiveStockPrices: jsonData={}", jsonData);
+        return jsonData;
     }
 }

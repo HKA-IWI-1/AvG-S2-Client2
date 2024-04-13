@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.stream.Stream;
 
-public enum OrderStatus {
+public enum OrderStatusType {
 
     SUCCESS("S"),
     ERROR("S"),
@@ -32,15 +32,10 @@ public enum OrderStatus {
 
     private final String value;
 
-    OrderStatus(final String value) {
+    OrderStatusType(final String value) {
         this.value = value;
     }
 
-    /**
-     * Einen enum-Wert als String mit dem internen Wert ausgeben.
-     *
-     * @return Interner Wert.
-     */
     @JsonValue
     @Override
     public String toString() {
@@ -51,9 +46,9 @@ public enum OrderStatus {
      * Konvertierung eines Strings in einen Enum-Wert.
      */
     @JsonCreator
-    public static OrderStatus of(final String value) {
+    public static OrderStatusType of(final String value) {
         return Stream.of(values())
-                .filter(orderStatus -> orderStatus.value.equalsIgnoreCase(value))
+                .filter(orderStatusType -> orderStatusType.value.equalsIgnoreCase(value))
                 .findFirst()
                 .orElse(null);
     }

@@ -19,10 +19,8 @@
 
 package de.hka_iwi_1.avg_s2_client.entity;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.UUID;
 
@@ -30,12 +28,14 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @ToString
+@Builder
 public abstract class AbstractOrder {
 
     // created by client
-    private UUID purchaseId;
+    private UUID id;
 
-    private UUID clientId;
+    @Value("${client.id}")
+    private int clientId;
 
     private Exchange exchange;
 
@@ -43,5 +43,5 @@ public abstract class AbstractOrder {
 
     private int amount;
 
-    private OrderStatus status;
+    private OrderStatusType status;
 }

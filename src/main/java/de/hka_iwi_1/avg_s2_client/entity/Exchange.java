@@ -19,13 +19,9 @@
 
 package de.hka_iwi_1.avg_s2_client.entity;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Collection;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -33,7 +29,7 @@ import java.util.UUID;
 @ToString
 public class Exchange {
 
-    private UUID id;
+    private ExchangeIdType id;
 
     private Collection<Share> shares;
 }

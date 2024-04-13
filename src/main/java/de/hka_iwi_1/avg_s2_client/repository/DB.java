@@ -20,14 +20,22 @@
 package de.hka_iwi_1.avg_s2_client.repository;
 
 import de.hka_iwi_1.avg_s2_client.entity.AbstractOrder;
+import de.hka_iwi_1.avg_s2_client.entity.BuyOrder;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DB {
 
     static final List<AbstractOrder> ORDERS;
 
-    // todo: add Collection
+    static {
+        ORDERS = Stream.of(
+                BuyOrder.builder().build()
+        ).collect(Collectors.toList());
+        ORDERS.removeFirst();
+    }
 
     private DB() {
     }

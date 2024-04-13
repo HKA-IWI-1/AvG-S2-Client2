@@ -17,28 +17,32 @@
  *
  */
 
-package de.hka_iwi_1.avg_s2_client.entity;
+package de.hka_iwi_1.avg_s2_client.rest;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+//import de.hka_iwi_1.avg_s2_client.service.ProducerService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.util.Collection;
+@RestController
+@RequestMapping("/test")
+@RequiredArgsConstructor
+@Slf4j
+public class Controller {
 
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
-public class Share {
+    //private final ProducerService producerService;
 
-    // Regex: ^\b[A-NP-Z0-9]{6}\b$
-    private String wkn;
+    // z.B. http://localhost:8080/test/someString
+    @GetMapping(
+            path = "{content}"
+            , produces = "application/json"
+    )
+    public String getTest(
+            @PathVariable final String content
+    ) {
+        log.debug("getTest content={}", content);
+        //producerService.sendToTestQueue(content);
+        return "{ content:\"" + content + "\", }";
+    }
 
-    private int availableShares;
-
-    private BigDecimal price;
-
-    private Collection<BigDecimal> prices24hrs;
 }

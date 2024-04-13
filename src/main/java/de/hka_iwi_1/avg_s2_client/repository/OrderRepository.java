@@ -24,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.UUID;
 
 import static de.hka_iwi_1.avg_s2_client.repository.DB.ORDERS;
 
@@ -33,6 +34,17 @@ public class OrderRepository {
 
 
     public Collection<AbstractOrder> findAll() {
+        log.debug("findAll");
         return ORDERS;
+    }
+
+    public void persistOrder(AbstractOrder order) {
+        log.debug("persistOrder: order={}", order);
+        ORDERS.add(order);
+    }
+
+    public Collection<AbstractOrder> findOrder(UUID orderId) {
+        log.debug("findOrder: orderId={}", orderId);
+        return ORDERS.stream().filter(existingOrder -> existingOrder.getId().equals(orderId)).toList();
     }
 }

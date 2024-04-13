@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class ConsumerService {
+public class TestService {
 
     private final JmsTemplate jmsTemplate;
 
@@ -41,7 +41,7 @@ public class ConsumerService {
     @JmsListener(destination = "${jms.testQueueReceive}")
     private void testQueue(String message) {
         // do some fancy business logic
-        log.info("testQueue: {}", message);
+        log.debug("testQueue: {}", message);
         sendToTestQueue("received the following message: " + message); // send answer to producer
     }
 
@@ -53,7 +53,7 @@ public class ConsumerService {
      * @param message The answer to the producer.
      */
     private void sendToTestQueue(String message) {
-        log.info("sendToTestQueue: {}", message);
+        log.debug("sendToTestQueue: {}", message);
         jmsTemplate.convertAndSend(jmsQueue, message);
     }
 
@@ -67,6 +67,6 @@ public class ConsumerService {
      */
     @JmsListener(destination = "${jms.testQueueSend}")
     private void foo(String message) {
-        log.info("foo: {}", message);
+        log.debug("foo: {}", message);
     }
 }

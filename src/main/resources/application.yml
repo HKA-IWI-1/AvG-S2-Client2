@@ -42,14 +42,25 @@ logging:
   threshold:
     console: info
     file: info
+---
+# --------------------------------------------------------
+# P r o f i l e   " j m s "
+# --------------------------------------------------------
 jms:
   testQueueReceive: "testQueueReceive" # multicast addresse, anycast queue
   testQueueSend: "testQueueSend" # multicast addresse, anycast queue
   #testQueueSend: "testQueueReceive" So sendet der MS auf demselben Channel, auf dem er auch lauscht.
   # Wir simulieren also den Sender und den Empfänger.
-  publishStockPrices: "publishStockPrices"
-  sendOrder: "sendOrderStuttgart" # todo: über Konsolen-Params zwischen Stutt und Frank unterscheiden.
-  receiveOrderStatus: "receiveOrderStatusStuttgart"
+  stocks:
+    updates:
+      all : "stocks.updates.#"
+    newOrder:
+      Stuttgart: "stocks.newOrder.Stuttgart"
+      Frankfurt: "stocks.newOrder.Frankfurt"
+    orderStatus:
+      all: "stocks.orderStatus.#"
+      Stuttgart: "stocks.orderStatus.Stuttgart"
+      Frankfurt: "stocks.orderStatus.Frankfurt"
 ---
 # --------------------------------------------------------
 # P r o f i l e   " d e v "
@@ -70,3 +81,19 @@ logging:
     file: trace
   level:
     de.hka_iwi_1.avg_s2_client: trace
+---
+# --------------------------------------------------------
+# P r o f i l e   " C l i e n t  1 "
+# --------------------------------------------------------
+spring:
+  config.activate.on-profile: client2
+client:
+  id: "1"
+---
+# --------------------------------------------------------
+# P r o f i l e   " C l i e n t  2"
+# --------------------------------------------------------
+spring:
+  config.activate.on-profile: client1
+client:
+  id: "2"

@@ -17,28 +17,26 @@
  *
  */
 
-package de.hka_iwi_1.avg_s2_client.entity;
+package de.hka_iwi_1.avg_s2_client.service;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+//import lombok.RequiredArgsConstructor;
+//import lombok.extern.slf4j.Slf4j;
+//import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.jms.core.JmsTemplate;
+//import org.springframework.stereotype.Service;
+//
+//@Service
+//@Slf4j
+//@RequiredArgsConstructor
+public class Test2Service {
 
-import java.math.BigDecimal;
-import java.util.Collection;
-
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
-public class Share {
-
-    // Regex: ^\b[A-NP-Z0-9]{6}\b$
-    private String wkn;
-
-    private int availableShares;
-
-    private BigDecimal price;
-
-    private Collection<BigDecimal> prices24hrs;
+//    private final JmsTemplate jmsTemplate;
+//
+//    @Value("${jms.testQueueSend}")
+//    String jmsQueue;
+//
+//    public void sendToTestQueue(String message) {
+//        log.info("sendToTestQueue: {}", message);
+//        jmsTemplate.convertAndSend(jmsQueue, message);
+//    }
 }

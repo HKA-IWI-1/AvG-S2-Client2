@@ -19,15 +19,19 @@
 
 package de.hka_iwi_1.avg_s2_client.webSocket;
 
-import de.hka_iwi_1.avg_s2_client.entity.AbstractOrder;
-import de.hka_iwi_1.avg_s2_client.entity.BuyOrder;
-import de.hka_iwi_1.avg_s2_client.entity.SellOrder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import de.hka_iwi_1.avg_s2_client.entity.*;
+import de.hka_iwi_1.avg_s2_client.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+
+import java.util.Collection;
+
+import static de.hka_iwi_1.avg_s2_client.webSocket.StockPriceController.exchangeServicePrefix;
 
 @Controller
 @Slf4j
@@ -36,42 +40,50 @@ public class OrderController {
 
     public static final String orderPrefix = "/order";
 
-    private final JmsTemplate jmsTemplate;
+    public static final String wsOrders = exchangeServicePrefix + "/receiveOrders";
+
+    private final OrderService orderService;
 
     @MessageMapping("/buy")
-    public void sendBuyOrder(final BuyOrder order) {
-        // tbd
+    public void sendBuyOrder(final BuyOrder order) throws JsonProcessingException {
+        log.debug("sendBuyOrder: order={}", order);
+        sendOrder(OrderWrapper.builder().buyOrder(order).build());
+        publishOrders();
     }
 
     @MessageMapping("/sell")
-    public void sendSellOrder(final SellOrder order) {
-        // tbd
+    public void sendSellOrder(final SellOrder order) throws JsonProcessingException {
+        log.debug("sendSellOrder: order={}", order);
+        sendOrder(OrderWrapper.builder().sellOrder(order).build());
+        publishOrders();
     }
-
-
-    @Value("${jms.sendOrder}")
-    String sendOrder;
-
-    @Value("${jms.receiveOrderStatus}")
-    String receiveOrderStatus;
 
     /**
      * Send an order to the exchange.
      *
-     * @param order The order that is to be sent.
+     * @param orderWrapper The Sell and Buy Orders wrapped in one object.
      */
-    private void sendOrder(AbstractOrder order) {
-        log.info("sendOrder: {}", order);
-        jmsTemplate.convertAndSend(sendOrder, order);
+    private void sendOrder(OrderWrapper orderWrapper) throws JsonProcessingException {
+        log.debug("sendOrder: orderWrapper={}", orderWrapper);
+        orderService.sendOrder(orderWrapper);
+        publishOrders();
     }
 
     /**
-     * received an order status from the exchange.
+     * Receive an order from the exchange.
      *
-     * @param order The updated order.
+     * @param orderWrapper The wrapped updated order.
      */
-    private void receiveOrderStatus(String order) {
-        log.info("receiveOrderStatus: {}", order);
-        jmsTemplate.convertAndSend(receiveOrderStatus, order);
+    @JmsListener(destination = "${jms.stocks.orderStatus.all}")
+    private void receiveOrderStatus(OrderWrapper orderWrapper) throws JsonProcessingException {
+        log.debug("receiveOrderStatus: orderWrapper={}", orderWrapper);
+        orderService.updateOrderStatus(orderWrapper);
+        publishOrders();
+    }
+
+    @SendTo(wsOrders)
+    public Collection<AbstractOrder> publishOrders() {
+        log.debug("publishOrders");
+        return orderService.getAll();
     }
 }

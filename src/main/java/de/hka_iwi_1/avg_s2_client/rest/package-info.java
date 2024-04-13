@@ -17,26 +17,4 @@
  *
  */
 
-package de.hka_iwi_1.avg_s2_client.service;
-
-//import lombok.RequiredArgsConstructor;
-//import lombok.extern.slf4j.Slf4j;
-//import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.jms.core.JmsTemplate;
-//import org.springframework.stereotype.Service;
-//
-//@Service
-//@Slf4j
-//@RequiredArgsConstructor
-public class ProducerService {
-
-//    private final JmsTemplate jmsTemplate;
-//
-//    @Value("${jms.testQueueSend}")
-//    String jmsQueue;
-//
-//    public void sendToTestQueue(String message) {
-//        log.info("sendToTestQueue: {}", message);
-//        jmsTemplate.convertAndSend(jmsQueue, message);
-//    }
-}
+package de.hka_iwi_1.avg_s2_client.rest;

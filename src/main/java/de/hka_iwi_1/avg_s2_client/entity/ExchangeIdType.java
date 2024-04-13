@@ -17,32 +17,38 @@
  *
  */
 
-package de.hka_iwi_1.avg_s2_client.webSocket;
+package de.hka_iwi_1.avg_s2_client.entity;
 
-//import de.hka_iwi_1.avg_s2_client.service.ProducerService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-@RestController
-@RequestMapping("/test")
-@RequiredArgsConstructor
-@Slf4j
-public class Controller {
+import java.util.stream.Stream;
 
-    //private final ProducerService producerService;
+public enum ExchangeIdType {
 
-    // z.B. http://localhost:8080/test/someString
-    @GetMapping(
-            path = "{content}"
-            , produces = "application/json"
-    )
-    public String getTest(
-            @PathVariable final String content
-    ) {
-        log.debug("getTest content={}", content);
-        //producerService.sendToTestQueue(content);
-        return "{ content:\"" + content + "\", }";
+    STUTTGART("ST"),
+    FRANKFURT("F");
+
+    private final String value;
+
+    ExchangeIdType(final String value) {
+        this.value = value;
     }
 
+    @JsonValue
+    @Override
+    public String toString() {
+        return value;
+    }
+
+    /**
+     * Konvertierung eines Strings in einen Enum-Wert.
+     */
+    @JsonCreator
+    public static ExchangeIdType of(final String value) {
+        return Stream.of(values())
+                .filter(orderStatusType -> orderStatusType.value.equalsIgnoreCase(value))
+                .findFirst()
+                .orElse(null);
+    }
 }
