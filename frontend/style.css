@@ -1,3 +1,11 @@
 .hidden {
     display: none !important;
 }
+
+#client-status:not(.text-success) {
+    cursor: default;
+}
+
+#client-status.text-success {
+    cursor: pointer;
+}

@@ -16,6 +16,10 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
+"use strict";
+
+// todo: clean up https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file
+
 (function () {
     let clientId;
     let stompClient;
@@ -25,14 +29,14 @@
         "click",
         () => {
             clientId = document.getElementById("selectClient").value;
-            document.getElementById("selectClient--form").classList.add("hidden")
-            setConnected(true);
-            registerStompClient();
+            registerStompClient(clientId);
         });
 
-    function registerStompClient() {
+    function registerStompClient(clientId) {
+        const port = clientId === "1" ? "8080" : "8081";
         stompClient = new StompJs.Client({
-            brokerURL: 'ws://localhost:8080/stock-broker'
+            brokerURL: 'ws://127.0.0.1:' + port + '/stock-broker',
+            reconnectDelay: 0,
         });
 
         stompClient.onConnect = (frame) => {
@@ -43,26 +47,46 @@
                 const stocks = JSON.parse(stocksString.body).content;
                 console.log(stocks)
             });
-
             // subscribe to order updates
             stompClient.subscribe('/order/receiveOrders', (ordersString) => {
                 const orders = JSON.parse(ordersString.body).content;
                 console.log(orders)
             });
         };
+
+        stompClient.onWebSocketError = (error) => {
+            console.error('Error with websocket', error);
+        };
+
+        stompClient.onStompError = (frame) => {
+            console.error('Broker reported error: ' + frame.headers['message']);
+            console.error('Additional details: ' + frame.body);
+        };
+
+        stompClient.activate();
     }
 
     function setConnected(bool) {
+        const selectClientForm = document.getElementById("selectClient--form");
         const clientStatus = document.getElementById("client-status");
         const clientStatusBadge = document.getElementById("client-status__badge");
         if (bool) {
+            selectClientForm.classList.add("hidden");
+            selectClientButton.classList.add("disabled");
             clientStatus.classList.replace("text-danger", "text-success");
             clientStatusBadge.classList.replace("text-bg-danger", "text-bg-success")
             clientStatusBadge.innerHTML = "Yes";
         } else {
+            selectClientForm.classList.remove("hidden");
+            selectClientButton.classList.remove("disabled");
             clientStatus.classList.replace("text-success", "text-danger");
             clientStatusBadge.classList.replace("text-bg-success", "text-bg-danger")
             clientStatusBadge.innerHTML = "No";
         }
+        clientStatus.addEventListener("click", (e) => {
+            stompClient.deactivate();
+            setConnected(false);
+            console.log("Disconnected");
+        })
     }
 })()
