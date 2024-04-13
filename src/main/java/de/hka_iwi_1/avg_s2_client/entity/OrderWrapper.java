@@ -17,15 +17,16 @@
  *
  */
 
-package de.hka_iwi_1.avg_s2_client.service;
+package de.hka_iwi_1.avg_s2_client.entity;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import lombok.*;
 
-
-@Service
-@Slf4j
-@RequiredArgsConstructor
-public class StockPriceService {
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
+@Builder
+public class OrderWrapper {
+    private BuyOrder buyOrder;
+    private SellOrder sellOrder;
 }
