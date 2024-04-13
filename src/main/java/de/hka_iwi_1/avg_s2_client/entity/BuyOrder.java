@@ -19,8 +19,14 @@
 
 package de.hka_iwi_1.avg_s2_client.entity;
 
+import lombok.*;
+
 import java.math.BigDecimal;
 
+@Getter
+@Setter
+@ToString
+@Builder
 public class BuyOrder extends AbstractOrder {
 
     private BigDecimal maxPrice;

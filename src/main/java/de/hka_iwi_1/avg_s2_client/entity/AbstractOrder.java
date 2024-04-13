@@ -28,7 +28,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @ToString
-@Builder
+@RequiredArgsConstructor
 public abstract class AbstractOrder {
 
     // created by client
