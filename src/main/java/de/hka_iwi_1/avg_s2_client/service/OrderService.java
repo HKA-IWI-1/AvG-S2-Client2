@@ -70,10 +70,9 @@ public class OrderService {
         log.debug("updateOrderStatus: orderWrapper={}", orderWrapper);
         AbstractOrder orderFrontend = orderWrapper.getBuyOrder() != null ? orderWrapper.getBuyOrder() : orderWrapper.getSellOrder();
         var orders = repository.findOrder(orderFrontend.getId());
-        if (orders.size() != 1) {
-            throw new NotFoundException("Order not existing");
+        if (orders.size() == 1) {
+            orders.forEach(order -> order.setStatus(orderFrontend.getStatus()));
         }
-        orders.forEach(order -> order.setStatus(orderFrontend.getStatus()));
     }
 
     public Collection<AbstractOrder> getAll() {

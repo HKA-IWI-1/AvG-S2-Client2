@@ -49,6 +49,5 @@ public class StockPriceController {
                 exchange + wsStockPrices,
                 jsonData
         );
-
     }
 }

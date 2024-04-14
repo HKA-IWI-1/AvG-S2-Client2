@@ -27,6 +27,8 @@ import java.math.BigDecimal;
 @Setter
 @ToString
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class BuyOrder extends AbstractOrder {
 
     private BigDecimal maxPrice;

@@ -48,6 +48,8 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderWrapper {
     private BuyOrder buyOrder;
     private SellOrder sellOrder;

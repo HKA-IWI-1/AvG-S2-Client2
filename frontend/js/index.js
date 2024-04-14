@@ -48,7 +48,7 @@
                 console.log(stocks)
             });
             // subscribe to order updates
-            stompClient.subscribe('/order/receiveOrders', (ordersObject) => {
+            stompClient.subscribe('/exchange/receiveOrders', (ordersObject) => {
                 const orders = JSON.parse(ordersObject.body);
                 console.log(orders)
             });

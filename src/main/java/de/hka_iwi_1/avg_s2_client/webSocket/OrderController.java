@@ -20,13 +20,13 @@
 package de.hka_iwi_1.avg_s2_client.webSocket;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.hka_iwi_1.avg_s2_client.entity.*;
 import de.hka_iwi_1.avg_s2_client.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
@@ -44,6 +44,8 @@ public class OrderController {
     private final OrderService orderService;
 
     private final SimpMessagingTemplate simpMessagingTemplate;
+
+    private final ObjectMapper mapper;
 
     @MessageMapping(orderPrefix + "/buy")
     public void sendBuyOrder(final BuyOrder order) throws JsonProcessingException {
@@ -73,12 +75,14 @@ public class OrderController {
     /**
      * Receive an order from the exchange.
      *
-     * @param orderWrapper The wrapped updated order.
+     * @param orderWrapperString The wrapped updated order.
      */
     @JmsListener(destination = "${jms.stocks.orderStatus.Stuttgart}")
     @JmsListener(destination = "${jms.stocks.orderStatus.Frankfurt}")
-    private void receiveOrderStatus(OrderWrapper orderWrapper) {
-        log.debug("receiveOrderStatus: orderWrapper={}", orderWrapper);
+    //todo: convert orderWrapperString automatically
+    private void receiveOrderStatus(String orderWrapperString) throws JsonProcessingException {
+        log.debug("receiveOrderStatus: orderWrapperString={}", orderWrapperString);
+        var orderWrapper = mapper.readValue(orderWrapperString, OrderWrapper.class);
         orderService.updateOrderStatus(orderWrapper);
         publishOrders();
     }
