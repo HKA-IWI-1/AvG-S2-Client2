@@ -43,13 +43,13 @@
             setConnected(true);
             console.log('Connected: ' + frame);
             // subscribe to exchange service
-            stompClient.subscribe('/exchangeService/receiveStockPrices', (stocksString) => {
-                const stocks = JSON.parse(stocksString.body).content;
+            stompClient.subscribe('/exchange/stockPrices', (stocksObject) => {
+                const stocks = JSON.parse(stocksObject.body);
                 console.log(stocks)
             });
             // subscribe to order updates
-            stompClient.subscribe('/order/receiveOrders', (ordersString) => {
-                const orders = JSON.parse(ordersString.body).content;
+            stompClient.subscribe('/order/receiveOrders', (ordersObject) => {
+                const orders = JSON.parse(ordersObject.body);
                 console.log(orders)
             });
         };

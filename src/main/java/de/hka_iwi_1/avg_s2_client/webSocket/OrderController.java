@@ -27,11 +27,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
-import java.util.Collection;
-
-import static de.hka_iwi_1.avg_s2_client.webSocket.StockPriceController.exchangeServicePrefix;
+import static de.hka_iwi_1.avg_s2_client.webSocket.StockPriceController.exchange;
 
 @Controller
 @Slf4j
@@ -40,18 +39,20 @@ public class OrderController {
 
     public static final String orderPrefix = "/order";
 
-    public static final String wsOrders = exchangeServicePrefix + "/receiveOrders";
+    public static final String receiveOrders = "/receiveOrders";
 
     private final OrderService orderService;
 
-    @MessageMapping("/buy")
+    private final SimpMessagingTemplate simpMessagingTemplate;
+
+    @MessageMapping(orderPrefix + "/buy")
     public void sendBuyOrder(final BuyOrder order) throws JsonProcessingException {
         log.debug("sendBuyOrder: order={}", order);
         sendOrder(OrderWrapper.builder().buyOrder(order).build());
         publishOrders();
     }
 
-    @MessageMapping("/sell")
+    @MessageMapping(orderPrefix + "/sell")
     public void sendSellOrder(final SellOrder order) throws JsonProcessingException {
         log.debug("sendSellOrder: order={}", order);
         sendOrder(OrderWrapper.builder().sellOrder(order).build());
@@ -74,16 +75,19 @@ public class OrderController {
      *
      * @param orderWrapper The wrapped updated order.
      */
-    @JmsListener(destination = "${jms.stocks.orderStatus.all}")
-    private void receiveOrderStatus(OrderWrapper orderWrapper) throws JsonProcessingException {
+    @JmsListener(destination = "${jms.stocks.orderStatus.Stuttgart}")
+    @JmsListener(destination = "${jms.stocks.orderStatus.Frankfurt}")
+    private void receiveOrderStatus(OrderWrapper orderWrapper) {
         log.debug("receiveOrderStatus: orderWrapper={}", orderWrapper);
         orderService.updateOrderStatus(orderWrapper);
         publishOrders();
     }
 
-    @SendTo(wsOrders)
-    public Collection<AbstractOrder> publishOrders() {
+    public void publishOrders() {
         log.debug("publishOrders");
-        return orderService.getAll();
+        simpMessagingTemplate.convertAndSend(
+                exchange + receiveOrders,
+                orderService.getAll()
+        );
     }
 }

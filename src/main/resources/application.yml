@@ -55,14 +55,12 @@ jms:
   # Wir simulieren also den Sender und den Empfänger.
   stocks:
     updates:
-      all: "stocks.updates.#"
       Stuttgart: "stocks.updates.Stuttgart" # multicast
       Frankfurt: "stocks.updates.Frankfurt" # multicast
     newOrder:
       Stuttgart: "stocks.newOrder.Stuttgart" # anycast
       Frankfurt: "stocks.newOrder.Frankfurt" # anycast
     orderStatus: # todo remove
-      all: "stocks.c1.orderStatus.#"
       Stuttgart: "stocks.c1.orderStatus.Stuttgart" # anycast
       Frankfurt: "stocks.c1.orderStatus.Frankfurt" # anycast
 ---
@@ -96,7 +94,6 @@ client:
 jms:
   stocks:
     orderStatus:
-      all: "stocks.c1.orderStatus.#"
       Stuttgart: "stocks.c1.orderStatus.Stuttgart" # anycast
       Frankfurt: "stocks.c1.orderStatus.Frankfurt" # anycast
 ---
@@ -110,6 +107,5 @@ client:
 jms:
   stocks:
     orderStatus:
-      all: "stocks.c2.orderStatus.#"
       Stuttgart: "stocks.c2.orderStatus.Stuttgart" # anycast
       Frankfurt: "stocks.c2.orderStatus.Frankfurt" # anycast

@@ -26,7 +26,7 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 import static de.hka_iwi_1.avg_s2_client.webSocket.OrderController.orderPrefix;
-import static de.hka_iwi_1.avg_s2_client.webSocket.StockPriceController.exchangeServicePrefix;
+import static de.hka_iwi_1.avg_s2_client.webSocket.StockPriceController.exchange;
 
 @Configuration
 @EnableWebSocketMessageBroker
@@ -36,7 +36,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker(exchangeServicePrefix); // Send stock price updates to `/exchangeService/stocks`. No ActiveMQ broker. Just a websocket broker for the frontend.
+        config.enableSimpleBroker(exchange); // Send stock price updates to `/exchange/stocks`. No ActiveMQ broker. Just a websocket broker for the frontend.
         config.setApplicationDestinationPrefixes(orderPrefix); // mapping: `/order/sell` and `/order/buy` to correspond controller classes.
     }
 

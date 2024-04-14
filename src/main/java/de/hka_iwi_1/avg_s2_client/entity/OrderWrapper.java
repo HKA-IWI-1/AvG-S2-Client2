@@ -16,6 +16,28 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
+/*
+{
+    "buyOrder": {
+        "id": null,
+        "clientId": 0,
+        "exchange": null,
+        "share": null,
+        "amount": 0,
+        "status": null,
+        "maxPrice": null
+    },
+    "sellOrder": {
+        "id": null,
+        "clientId": 0,
+        "exchange": null,
+        "share": null,
+        "amount": 0,
+        "status": null,
+        "minPrice": null
+    }
+}
+* */
 
 package de.hka_iwi_1.avg_s2_client.entity;
 
