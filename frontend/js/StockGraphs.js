@@ -51,8 +51,6 @@ class StockGraphs {
     }
 
     updateStockGraphs(exchanges) {
-        console.log(exchanges)
-        console.log(this.stockGraphs)
         exchanges.forEach(exchange => {
             exchange.shares.forEach(
                 stock => {

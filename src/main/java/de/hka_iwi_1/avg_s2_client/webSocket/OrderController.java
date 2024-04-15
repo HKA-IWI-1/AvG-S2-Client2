@@ -48,14 +48,16 @@ public class OrderController {
     private final ObjectMapper mapper;
 
     @MessageMapping("/buy")
-    public void sendBuyOrder(final BuyOrder order) throws JsonProcessingException {
+    public void sendBuyOrder(final String orderString) throws JsonProcessingException {
+        var order = mapper.readValue(orderString, BuyOrder.class);
         log.debug("sendBuyOrder: order={}", order);
         sendOrder(OrderWrapper.builder().buyOrder(order).build());
         publishOrders();
     }
 
     @MessageMapping("/sell")
-    public void sendSellOrder(final SellOrder order) throws JsonProcessingException {
+    public void sendSellOrder(final String orderString) throws JsonProcessingException {
+        var order = mapper.readValue(orderString, SellOrder.class);
         log.debug("sendSellOrder: order={}", order);
         sendOrder(OrderWrapper.builder().sellOrder(order).build());
         publishOrders();

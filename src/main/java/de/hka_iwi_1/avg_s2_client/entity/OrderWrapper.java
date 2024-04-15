@@ -22,7 +22,7 @@
         "id": null,
         "clientId": 0,
         "exchangeId": 0,
-        "wkn": 1
+        "wkn": 1,
         "amount": 1,
         "status": null,
         "maxPrice": null
@@ -31,7 +31,7 @@
         "id": null,
         "clientId": 0,
         "exchangeId": 0,
-        "wkn": 1
+        "wkn": 1,
         "amount": 0,
         "status": null,
         "minPrice": null

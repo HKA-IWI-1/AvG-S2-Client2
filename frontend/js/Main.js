@@ -18,6 +18,8 @@
  */
 "use strict";
 
+let _clientId;
+
 class Main {
     wsC = new WebSocketConnection();
     clientId;
@@ -25,6 +27,7 @@ class Main {
     selectClientButton = document.getElementById("selectClient--button");
     stockGraphs;
     orders;
+    orderForm;
 
     constructor() {
         new HeaderNav();
@@ -32,6 +35,7 @@ class Main {
             "click",
             () => {
                 this.clientId = document.getElementById("selectClient").value;
+                _clientId = this.clientId;
                 this.registerStompClient();
             });
     }
@@ -51,12 +55,15 @@ class Main {
                 } else {
                     this.stockGraphs.updateStockGraphs(exchanges);
                 }
+
+                if (this.orderForm === undefined) {
+                    this.orderForm = new OrderForm(exchanges, this.stompClient);
+                }
             });
 
             // subscribe to order updates
             this.stompClient.subscribe('/exchange/receiveOrders', (ordersBinary) => {
                 const orders = JSON.parse(ordersBinary.body)
-                console.log(orders);
                 if (this.orders === undefined) {
                     this.orders = new Orders(orders);
                     // this.orders = new Orders([

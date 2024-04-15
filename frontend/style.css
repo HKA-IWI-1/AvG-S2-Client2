@@ -68,3 +68,11 @@
 .open-orders__hull > div.error {
     background-color: rgba(255, 0, 0, 0.53);
 }
+
+#submitExchange {
+    padding: 0.1rem;
+    background-color: #caf1ca;
+    display: inline-block;
+    cursor: pointer;
+    margin: 1rem;
+}

@@ -25,6 +25,7 @@
     <!--    stylesheets -->
     <link rel="stylesheet" type="text/css" href="./style.css">
     <!--JavaScript -->
+    <script type="text/javascript" src="js/OrderForm.js" defer></script>
     <script type="text/javascript" src="js/Orders.js" defer></script>
     <script type="text/javascript" src="js/StockGraphs.js" defer></script>
     <script type="text/javascript" src="./js/HeaderNav.js" defer></script>
@@ -103,6 +104,37 @@
     </div>
     <div id="buy-sell-stocks" class="col hidden">
         <h3>Buy or sell stocks</h3>
+        <form>
+            <fieldset>
+                <div class="mb-3">
+                    <label for="buy-sell-stock--exchange" class="form-label">Select Exchange</label>
+                    <select id="buy-sell-stock--exchange" class="form-select">
+                    </select>
+
+                    <div id="submitExchange">Verify exchange selection</div>
+
+                    <br>
+
+                    <label for="buy-sell-stock--share" class="form-label">Select Share</label>
+                    <select disabled id="buy-sell-stock--share" class="form-select">
+                    </select>
+
+                    <label for="buy-sell-stock--amount" class="form-label">Select Amount</label>
+                    <input disabled type="number" id="buy-sell-stock--amount" class="form-control"
+                           aria-label="Share amount">
+
+                    <label for="buy-sell-stock--order-type" class="form-label">Select Order Type</label>
+                    <select disabled id="buy-sell-stock--order-type" class="form-select">
+                        <option>Buy</option>
+                        <option>Sell</option>
+                    </select>
+
+                </div>
+                <div type="submit" id="buy-sell-stock--button" class="btn btn-primary">Submit</div>
+            </fieldset>
+        </form>
+
+
     </div>
 
 </div>
