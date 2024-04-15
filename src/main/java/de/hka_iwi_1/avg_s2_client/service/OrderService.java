@@ -22,10 +22,9 @@ package de.hka_iwi_1.avg_s2_client.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.hka_iwi_1.avg_s2_client.entity.AbstractOrder;
-import de.hka_iwi_1.avg_s2_client.entity.ExchangeIdType;
+import de.hka_iwi_1.avg_s2_client.entity.ExchangeId;
 import de.hka_iwi_1.avg_s2_client.entity.OrderWrapper;
 import de.hka_iwi_1.avg_s2_client.repository.OrderRepository;
-import de.hka_iwi_1.avg_s2_client.webSocket.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,7 +53,7 @@ public class OrderService {
     public void sendOrder(OrderWrapper orderWrapper) throws JsonProcessingException {
         log.debug("sendOrder: orderWrapper={}", orderWrapper);
         var order = orderWrapper.getBuyOrder() == null ? orderWrapper.getSellOrder() : orderWrapper.getBuyOrder();
-        var exchangeDestination = order.getExchange().getId().equals(ExchangeIdType.STUTTGART)
+        var exchangeDestination = order.getExchangeId().equals(ExchangeId.STUTTGART)
                 ? sendOrderSt
                 : sendOrderF;
         jmsTemplate.convertAndSend(exchangeDestination, mapper.writeValueAsString(orderWrapper));

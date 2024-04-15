@@ -47,14 +47,14 @@ public class OrderController {
 
     private final ObjectMapper mapper;
 
-    @MessageMapping(orderPrefix + "/buy")
+    @MessageMapping("/buy")
     public void sendBuyOrder(final BuyOrder order) throws JsonProcessingException {
         log.debug("sendBuyOrder: order={}", order);
         sendOrder(OrderWrapper.builder().buyOrder(order).build());
         publishOrders();
     }
 
-    @MessageMapping(orderPrefix + "/sell")
+    @MessageMapping("/sell")
     public void sendSellOrder(final SellOrder order) throws JsonProcessingException {
         log.debug("sendSellOrder: order={}", order);
         sendOrder(OrderWrapper.builder().sellOrder(order).build());
@@ -87,8 +87,10 @@ public class OrderController {
         publishOrders();
     }
 
+    @MessageMapping("/all")
     public void publishOrders() {
         log.debug("publishOrders");
+        log.info("publishOrders");
         simpMessagingTemplate.convertAndSend(
                 exchange + receiveOrders,
                 orderService.getAll()
