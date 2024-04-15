@@ -90,7 +90,6 @@ public class OrderController {
     @MessageMapping("/all")
     public void publishOrders() {
         log.debug("publishOrders");
-        log.info("publishOrders");
         simpMessagingTemplate.convertAndSend(
                 exchange + receiveOrders,
                 orderService.getAll()
