@@ -38,9 +38,10 @@ public abstract class AbstractOrder {
     @Value("${client.id}")
     private int clientId;
 
-    private Exchange exchange;
+    private UUID exchangeId;
 
-    private Share share;
+    // Regex: ^\b[A-NP-Z0-9]{6}\b$
+    private String wkn;
 
     private int amount;
 

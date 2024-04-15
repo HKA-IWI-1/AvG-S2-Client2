@@ -22,6 +22,7 @@ package de.hka_iwi_1.avg_s2_client.entity;
 import lombok.*;
 
 import java.util.Collection;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -29,7 +30,26 @@ import java.util.Collection;
 @ToString
 public class Exchange {
 
-    private ExchangeIdType id;
+    private UUID id;
 
     private Collection<Share> shares;
 }
+/*
+{
+börsea:id,
+stocklist: {
+{},
+{},
+}
+}
+}
+{
+börseb:id,
+stocklist: {
+{},
+{},
+}
+}
+}
+
+ */

@@ -21,17 +21,17 @@
     "buyOrder": {
         "id": null,
         "clientId": 0,
-        "exchange": null,
-        "share": null,
-        "amount": 0,
+        "exchangeId": 0,
+        "wkn": 1
+        "amount": 1,
         "status": null,
         "maxPrice": null
     },
     "sellOrder": {
         "id": null,
         "clientId": 0,
-        "exchange": null,
-        "share": null,
+        "exchangeId": 0,
+        "wkn": 1
         "amount": 0,
         "status": null,
         "minPrice": null

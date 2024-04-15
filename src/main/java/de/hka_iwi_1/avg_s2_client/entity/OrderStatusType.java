@@ -27,8 +27,8 @@ import java.util.stream.Stream;
 public enum OrderStatusType {
 
     SUCCESS("S"),
-    ERROR("S"),
-    PENDING("S");
+    ERROR("E"),
+    PENDING("P");
 
     private final String value;
 

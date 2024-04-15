@@ -38,7 +38,7 @@ public class Share {
 
     private int availableShares;
 
-    private BigDecimal price;
+    //private BigDecimal price;
 
-    private Collection<BigDecimal> prices24hrs;
+    private Collection<BigDecimal> priceHistory;
 }
