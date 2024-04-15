@@ -30,21 +30,29 @@ class WebSocketConnection {
         if (bool) {
             this.selectClientForm.classList.add("hidden");
             this.selectClientButton.classList.add("disabled");
-            this.clientStatus.classList.replace("text-danger", "text-success");
-            this.clientStatusBadge.classList.replace("text-bg-danger", "text-bg-success")
-            this.clientStatusBadge.innerHTML = "Yes";
+
+            this.clientStatus.classList.replace("text-danger-emphasis", "text-success-emphasis");
+            this.clientStatus.classList.replace("bg-danger-subtle", "bg-success-subtle");
+            this.clientStatus.classList.replace("border-danger-subtle", "border-success-subtle");
+
+            this.clientStatusBadge.classList.replace("bi-exclamation-triangle", "bi-check-lg")
+            this.clientStatusBadge.innerHTML = "Connected";
         } else {
             this.selectClientForm.classList.remove("hidden");
             this.selectClientButton.classList.remove("disabled");
-            this.clientStatus.classList.replace("text-success", "text-danger");
-            this.clientStatusBadge.classList.replace("text-bg-success", "text-bg-danger")
-            this.clientStatusBadge.innerHTML = "No";
+
+            this.clientStatus.classList.replace("text-success-emphasis", "text-danger-emphasis");
+            this.clientStatus.classList.replace("bg-success-subtle", "bg-danger-subtle");
+            this.clientStatus.classList.replace("border-success-subtle", "border-danger-subtle");
+
+            this.clientStatusBadge.classList.replace("bi-check-lg", "bi-exclamation-triangle")
+            this.clientStatusBadge.innerHTML = "Not Connected";
         }
-        this.clientStatus.addEventListener("click", (e) => {
-            this.stompClient.deactivate();
-            this.setConnected(false);
-            console.log("Disconnected");
-        })
+        // this.clientStatus.addEventListener("click", (e) => {
+        //     this.stompClient.deactivate();
+        //     this.setConnected(false);
+        //     console.log("Disconnected");
+        // })
     }
 
     connect(clientId) {

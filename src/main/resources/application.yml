@@ -54,9 +54,9 @@ jms:
   #testQueueSend: "testQueueReceive" So sendet der MS auf demselben Channel, auf dem er auch lauscht.
   # Wir simulieren also den Sender und den Empfänger.
   stocks:
-    updates:
-      Stuttgart: "stocks.updates.Stuttgart" # multicast
-      Frankfurt: "stocks.updates.Frankfurt" # multicast
+    updates: "stocks.updates"
+      #Stuttgart: "stocks.updates.Stuttgart" # multicast
+      #Frankfurt: "stocks.updates.Frankfurt" # multicast
     newOrder:
       Stuttgart: "stocks.newOrder.Stuttgart" # anycast
       Frankfurt: "stocks.newOrder.Frankfurt" # anycast

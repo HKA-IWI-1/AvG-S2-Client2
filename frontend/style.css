@@ -2,10 +2,46 @@
     display: none !important;
 }
 
-#client-status:not(.text-success) {
+#client-status:not(.text-success-emphasis) {
     cursor: default;
 }
 
-#client-status.text-success {
-    cursor: pointer;
+#client-status.text-success-emphasis {
+    /*cursor: pointer;*/
+    cursor: default;
+}
+
+#client-status {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    min-height: 2.2rem;
+}
+
+#client-status__badge::before {
+    margin-right: 0.2rem;
+}
+
+#spinner {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: gray;
+}
+
+#spinner > div {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+#spinner > div > span {
+    font-size: 1.5rem;
+    padding-left: 1rem;
+    cursor: default;
+}
+
+#spinner > div > div {
+    margin: 50% 0 0 50%;
 }

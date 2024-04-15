@@ -17,4 +17,9 @@
 *
 */
 "use strict";
-new Main();
+
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(() => {
+    document.getElementById('spinner').classList.add("hidden");
+    new Main();
+});

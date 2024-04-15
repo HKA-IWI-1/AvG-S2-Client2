@@ -41,8 +41,7 @@ public class StockPriceController {
      *
      * @param jsonData Serialized JSON-String containing stock data.
      */
-    @JmsListener(destination = "${jms.stocks.updates.Frankfurt}")
-    @JmsListener(destination = "${jms.stocks.updates.Stuttgart}")
+    @JmsListener(destination = "${jms.stocks.updates}")
     public void receiveStockData(String jsonData) {
         log.debug("receiveStockPrices: jsonData={}", jsonData);
         simpMessagingTemplate.convertAndSend(

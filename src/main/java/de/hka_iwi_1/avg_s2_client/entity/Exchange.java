@@ -17,6 +17,49 @@
  *
  */
 
+/* Data coming from the producer.
+[
+   {
+      "id":"00000000-0000-0000-0000-000000000001",
+      "name":"Stuttgart",
+      "shares":[
+         {
+            "wkn":"123456",
+            "availableShares":100,
+            "priceHistory":[
+               124.03,
+               206,
+               35,
+               74,
+               56,
+               37,
+               84
+            ]
+         }
+      ]
+   },
+   {
+      "id":"00000000-0000-0000-0000-000000000002",
+      "name":"Frankfurt",
+      "shares":[
+         {
+            "wkn":"234567",
+            "availableShares":200,
+            "priceHistory":[
+                90.89,
+                84,
+                28,
+                278,
+                25,
+                27,
+                76
+            ]
+         }
+      ]
+   }
+]
+ */
+
 package de.hka_iwi_1.avg_s2_client.entity;
 
 import lombok.*;
@@ -34,22 +77,3 @@ public class Exchange {
 
     private Collection<Share> shares;
 }
-/*
-{
-börsea:id,
-stocklist: {
-{},
-{},
-}
-}
-}
-{
-börseb:id,
-stocklist: {
-{},
-{},
-}
-}
-}
-
- */

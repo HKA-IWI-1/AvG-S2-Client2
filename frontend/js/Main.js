@@ -23,8 +23,10 @@ class Main {
     clientId;
     stompClient;
     selectClientButton = document.getElementById("selectClient--button");
+    stockGraph;
 
     constructor() {
+        new HeaderNav();
         this.selectClientButton.addEventListener(
             "click",
             () => {
@@ -41,15 +43,22 @@ class Main {
             console.log('Connected: ' + frame);
 
             // subscribe to exchange service
-            this.stompClient.subscribe('/exchange/stockPrices', (stocksObject) => {
-                const stocks = JSON.parse(stocksObject.body);
-                console.log(stocks)
+            this.stompClient.subscribe('/exchange/stockPrices', (exchangesBinary) => {
+                const exchanges = JSON.parse(exchangesBinary.body)
+                console.log(exchanges);
+                if (this.stockGraph === undefined) {
+                    console.log("new graphs")
+                    this.stockGraph = new StockGraph(exchanges);
+                } else {
+                    console.log("update graphs")
+                    this.stockGraph.updateStockGraphs(exchanges);
+                }
             });
 
             // subscribe to order updates
-            this.stompClient.subscribe('/exchange/receiveOrders', (ordersObject) => {
-                const orders = JSON.parse(ordersObject.body);
-                console.log(orders)
+            this.stompClient.subscribe('/exchange/receiveOrders', (ordersBinary) => {
+                const orders = JSON.parse(ordersBinary.body)
+                console.log(orders);
             });
 
             this.getAllOrders();
