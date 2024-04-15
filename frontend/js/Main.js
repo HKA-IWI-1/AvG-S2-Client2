@@ -23,7 +23,8 @@ class Main {
     clientId;
     stompClient;
     selectClientButton = document.getElementById("selectClient--button");
-    stockGraph;
+    stockGraphs;
+    orders;
 
     constructor() {
         new HeaderNav();
@@ -45,13 +46,10 @@ class Main {
             // subscribe to exchange service
             this.stompClient.subscribe('/exchange/stockPrices', (exchangesBinary) => {
                 const exchanges = JSON.parse(exchangesBinary.body)
-                console.log(exchanges);
-                if (this.stockGraph === undefined) {
-                    console.log("new graphs")
-                    this.stockGraph = new StockGraph(exchanges);
+                if (this.stockGraphs === undefined) {
+                    this.stockGraphs = new StockGraphs(exchanges);
                 } else {
-                    console.log("update graphs")
-                    this.stockGraph.updateStockGraphs(exchanges);
+                    this.stockGraphs.updateStockGraphs(exchanges);
                 }
             });
 
@@ -59,6 +57,73 @@ class Main {
             this.stompClient.subscribe('/exchange/receiveOrders', (ordersBinary) => {
                 const orders = JSON.parse(ordersBinary.body)
                 console.log(orders);
+                if (this.orders === undefined) {
+                    this.orders = new Orders(orders);
+                    // this.orders = new Orders([
+                    //     {
+                    //         "id": 1,
+                    //         "clientId": 2,
+                    //         "exchangeId": 3,
+                    //         "wkn": 4,
+                    //         "amount": 5,
+                    //         "status": "P",
+                    //         "minPrice": 6
+                    //     },
+                    //     {
+                    //         "id": 2,
+                    //         "clientId": 2,
+                    //         "exchangeId": 3,
+                    //         "wkn": 4,
+                    //         "amount": 5,
+                    //         "status": "P",
+                    //         "minPrice": 6
+                    //     },
+                    //     {
+                    //         "id": 3,
+                    //         "clientId": 2,
+                    //         "exchangeId": 3,
+                    //         "wkn": 4,
+                    //         "amount": 5,
+                    //         "status": "P",
+                    //         "minPrice": 6
+                    //     }
+                    // ])
+                } else {
+                    this.orders.updateOrderList(orders);
+                }
+                // setTimeout(() => {
+                //     this.orders.updateOrderList(
+                //         [
+                //             {
+                //                 "id": 1,
+                //                 "clientId": 2,
+                //                 "exchangeId": 3,
+                //                 "wkn": 4,
+                //                 "amount": 5,
+                //                 "status": "P",
+                //                 "minPrice": 6
+                //             },
+                //             {
+                //                 "id": 2,
+                //                 "clientId": 2,
+                //                 "exchangeId": 3,
+                //                 "wkn": 4,
+                //                 "amount": 5,
+                //                 "status": "S",
+                //                 "minPrice": 6
+                //             },
+                //             {
+                //                 "id": 3,
+                //                 "clientId": 2,
+                //                 "exchangeId": 3,
+                //                 "wkn": 4,
+                //                 "amount": 5,
+                //                 "status": "E",
+                //                 "minPrice": 6
+                //             }
+                //         ]
+                //     )
+                // }, 5000)
             });
 
             this.getAllOrders();

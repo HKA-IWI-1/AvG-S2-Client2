@@ -25,7 +25,8 @@
     <!--    stylesheets -->
     <link rel="stylesheet" type="text/css" href="./style.css">
     <!--JavaScript -->
-    <script type="text/javascript" src="js/StockGraph.js" defer></script>
+    <script type="text/javascript" src="js/Orders.js" defer></script>
+    <script type="text/javascript" src="js/StockGraphs.js" defer></script>
     <script type="text/javascript" src="./js/HeaderNav.js" defer></script>
     <script type="text/javascript" src="./js/WebSocketConnection.js" defer></script>
     <script type="text/javascript" src="./js/Main.js" defer></script>
@@ -64,8 +65,7 @@
     <ul class="nav nav-pills">
         <li id="header__button--stocks" class="nav-item"><a href="#" class="nav-link active"
                                                             aria-current="page">Stocks</a></li>
-        <li id="header__button--open-orders" class="nav-item"><a href="#" class="nav-link">Open Orders</a></li>
-        <li id="header__button--closed-orders" class="nav-item"><a href="#" class="nav-link">Closed Orders</a></li>
+        <li id="header__button--open-orders" class="nav-item"><a href="#" class="nav-link">Orders</a></li>
         <li id="header__button--buy-sell-stocks" class="nav-item"><a href="#" class="nav-link">Buy or sell stocks</a>
         </li>
     </ul>
@@ -98,10 +98,7 @@
             <h3>Stocks</h3>
         </div>
         <div id="open-orders" class="col hidden">
-            <h3>Open Orders</h3>
-        </div>
-        <div id="closed-orders" class="col hidden">
-            <h3>Closed Orders</h3>
+            <h3>Orders</h3>
         </div>
     </div>
     <div id="buy-sell-stocks" class="col hidden">

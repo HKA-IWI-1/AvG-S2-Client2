@@ -20,12 +20,10 @@
 class HeaderNav {
     buttonStocks = document.getElementById('header__button--stocks');
     buttonOpenOrders = document.getElementById('header__button--open-orders');
-    buttonClosedOrders = document.getElementById('header__button--closed-orders');
     buttonBuySellStocks = document.getElementById('header__button--buy-sell-stocks');
 
     colStocks = document.getElementById('stocks');
     colOpenOrders = document.getElementById('open-orders');
-    colClosedOrders = document.getElementById('closed-orders');
     colBuySellStocks = document.getElementById('buy-sell-stocks');
 
     constructor() {
@@ -47,13 +45,6 @@ class HeaderNav {
             this.buttonOpenOrders.classList.add('active')
             this.buttonOpenOrders.children[0].classList.add('active')
         });
-        this.buttonClosedOrders.addEventListener('click', () => {
-            this.toggleVisibleColumn(this.colClosedOrders);
-            this.colClosedOrders.classList.remove('hidden')
-            this.toggleVisibleButton(this.buttonClosedOrders)
-            this.buttonClosedOrders.classList.add('active')
-            this.buttonClosedOrders.children[0].classList.add('active')
-        });
         this.buttonBuySellStocks.addEventListener('click', () => {
             this.toggleVisibleColumn(this.colBuySellStocks);
             this.colBuySellStocks.classList.remove('hidden')
@@ -68,24 +59,22 @@ class HeaderNav {
             this.colStocks.classList.add('hidden');
         if (visibleCol !== this.colOpenOrders)
             this.colOpenOrders.classList.add('hidden');
-        if (visibleCol !== this.colClosedOrders)
-            this.colClosedOrders.classList.add('hidden');
         if (visibleCol !== this.colBuySellStocks)
             this.colBuySellStocks.classList.add('hidden');
     }
 
     toggleVisibleButton(visibleButton) {
-        if (visibleButton !== this.buttonStocks)
+        if (visibleButton !== this.buttonStocks) {
             this.buttonStocks.classList.remove('active');
             this.buttonStocks.children[0].classList.remove('active');
-        if (visibleButton !== this.buttonOpenOrders)
+        }
+        if (visibleButton !== this.buttonOpenOrders) {
             this.buttonOpenOrders.classList.remove('active');
             this.buttonOpenOrders.children[0].classList.remove('active');
-        if (visibleButton !== this.buttonClosedOrders)
-            this.buttonClosedOrders.classList.remove('active');
-            this.buttonClosedOrders.children[0].classList.remove('active');
-        if (visibleButton !== this.buttonBuySellStocks)
+        }
+        if (visibleButton !== this.buttonBuySellStocks) {
             this.buttonBuySellStocks.classList.remove('active');
             this.buttonBuySellStocks.children[0].classList.remove('active');
+        }
     }
 }

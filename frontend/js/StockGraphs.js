@@ -17,7 +17,7 @@
  *
  */
 
-class StockGraph {
+class StockGraphs {
 
     stocksColumn = document.getElementById('stocks');
     stockGraphs;

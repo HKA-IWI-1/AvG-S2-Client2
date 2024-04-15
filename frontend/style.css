@@ -45,3 +45,26 @@
 #spinner > div > div {
     margin: 50% 0 0 50%;
 }
+
+.open-orders__hull > div > span {
+    padding: 1rem;
+}
+
+.open-orders__hull > div {
+    padding: 1rem;
+    border-radius: 1rem;
+    /*display: flex;*/
+    margin-bottom: 1rem;
+}
+
+.open-orders__hull > div:not(.success):not(.error) {
+    background-color: rgba(128, 128, 128, 0.44);
+}
+
+.open-orders__hull > div.success {
+    background-color: rgba(0, 128, 0, 0.53);
+}
+
+.open-orders__hull > div.error {
+    background-color: rgba(255, 0, 0, 0.53);
+}
