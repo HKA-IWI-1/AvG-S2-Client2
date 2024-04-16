@@ -53,6 +53,11 @@ class Orders {
                         child.classList.remove("pending");
                         child.classList.remove("success");
                     }
+                    child.childNodes.forEach(
+                        span => span.classList?.contains('status') ?
+                            span.innerText = order.status :
+                            null
+                    )
                 }
             })
             if (!orderExists) {
@@ -63,7 +68,7 @@ class Orders {
                                             <span>ExchangeId: ${order.exchangeId}</span>
                                             <span>Amount: ${order.amount}</span>
                                             <span>WKN: ${order.wkn}</span>
-                                            <span>Status: ${order.status}
+                                            <span class="status">Status: ${order.status}
                                         </span>`;
 
                 if (order.status === "S") {

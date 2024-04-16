@@ -86,6 +86,14 @@ class OrderForm {
                 destination: method,
                 body: JSON.stringify(orderWrapper)
             });
+            this.shareSelector.setAttribute('disabled', 'true');
+            this.amountSelector.setAttribute('disabled', 'true');
+            this.orderTypeSelector.setAttribute('disabled', 'true');
+            this.exchangeSelector.removeAttribute('disabled');
+            this.shareSelector.value = undefined;
+            this.amountSelector.value = undefined;
+            this.orderTypeSelector.value = undefined;
+            this.exchangeSelector.value = undefined;
         }
     }
 
