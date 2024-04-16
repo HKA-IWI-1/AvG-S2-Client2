@@ -38,6 +38,27 @@ class Main {
                 _clientId = this.clientId;
                 this.registerStompClient();
             });
+
+        const debugBuy = document.getElementById('debug-buy');
+        debugBuy.addEventListener("click", () => {
+            console.log("debug");
+            const order = {
+                "buyOrder": {
+                    "id": crypto.randomUUID(),
+                    "clientId": _clientId,
+                    "exchangeId": crypto.randomUUID(),
+                    "wkn": "111",
+                    "amount": "111",
+                    "status": "P",
+                    "minPrice": null
+                },
+                "sellOrder": null
+            }
+            this.stompClient.publish({
+                destination: '/order/buy',
+                body: JSON.stringify(order)
+            });
+        });
     }
 
     registerStompClient() {
