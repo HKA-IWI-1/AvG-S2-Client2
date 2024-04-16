@@ -38,27 +38,6 @@ class Main {
                 _clientId = this.clientId;
                 this.registerStompClient();
             });
-
-        const debugBuy = document.getElementById('debug-buy');
-        debugBuy.addEventListener("click", () => {
-            console.log("debug");
-            const order = {
-                "buyOrder": {
-                    "id": crypto.randomUUID(),
-                    "clientId": _clientId,
-                    "exchangeId": crypto.randomUUID(),
-                    "wkn": "111",
-                    "amount": "111",
-                    "status": "P",
-                    "minPrice": null
-                },
-                "sellOrder": null
-            }
-            this.stompClient.publish({
-                destination: '/order/buy',
-                body: JSON.stringify(order)
-            });
-        });
     }
 
     registerStompClient() {
@@ -87,71 +66,9 @@ class Main {
                 const orders = JSON.parse(ordersBinary.body)
                 if (this.orders === undefined) {
                     this.orders = new Orders(orders);
-                    // this.orders = new Orders([
-                    //     {
-                    //         "id": 1,
-                    //         "clientId": 2,
-                    //         "exchangeId": 3,
-                    //         "wkn": 4,
-                    //         "amount": 5,
-                    //         "status": "P",
-                    //         "minPrice": 6
-                    //     },
-                    //     {
-                    //         "id": 2,
-                    //         "clientId": 2,
-                    //         "exchangeId": 3,
-                    //         "wkn": 4,
-                    //         "amount": 5,
-                    //         "status": "P",
-                    //         "minPrice": 6
-                    //     },
-                    //     {
-                    //         "id": 3,
-                    //         "clientId": 2,
-                    //         "exchangeId": 3,
-                    //         "wkn": 4,
-                    //         "amount": 5,
-                    //         "status": "P",
-                    //         "minPrice": 6
-                    //     }
-                    // ])
                 } else {
                     this.orders.updateOrderList(orders);
                 }
-                // setTimeout(() => {
-                //     this.orders.updateOrderList(
-                //         [
-                //             {
-                //                 "id": 1,
-                //                 "clientId": 2,
-                //                 "exchangeId": 3,
-                //                 "wkn": 4,
-                //                 "amount": 5,
-                //                 "status": "P",
-                //                 "minPrice": 6
-                //             },
-                //             {
-                //                 "id": 2,
-                //                 "clientId": 2,
-                //                 "exchangeId": 3,
-                //                 "wkn": 4,
-                //                 "amount": 5,
-                //                 "status": "S",
-                //                 "minPrice": 6
-                //             },
-                //             {
-                //                 "id": 3,
-                //                 "clientId": 2,
-                //                 "exchangeId": 3,
-                //                 "wkn": 4,
-                //                 "amount": 5,
-                //                 "status": "E",
-                //                 "minPrice": 6
-                //             }
-                //         ]
-                //     )
-                // }, 5000)
             });
 
             this.getAllOrders();
