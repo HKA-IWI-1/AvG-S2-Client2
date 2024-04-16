@@ -56,7 +56,7 @@ jms:
   stocks:
     updates: "stocks.updates"
       #Stuttgart: "stocks.updates.Stuttgart" # multicast
-      #Frankfurt: "stocks.updates.Frankfurt" # multicast
+    #Frankfurt: "stocks.updates.Frankfurt" # multicast
     newOrder:
       Stuttgart: "stocks.newOrder.Stuttgart" # anycast
       Frankfurt: "stocks.newOrder.Frankfurt" # anycast
@@ -88,7 +88,7 @@ logging:
 # P r o f i l e   " C l i e n t  1 "
 # --------------------------------------------------------
 spring:
-  config.activate.on-profile: client2
+  config.activate.on-profile: client1
 client:
   id: "1"
 jms:
@@ -96,12 +96,14 @@ jms:
     orderStatus:
       Stuttgart: "stocks.c1.orderStatus.Stuttgart" # anycast
       Frankfurt: "stocks.c1.orderStatus.Frankfurt" # anycast
+server:
+  port: 8080
 ---
 # --------------------------------------------------------
 # P r o f i l e   " C l i e n t  2"
 # --------------------------------------------------------
 spring:
-  config.activate.on-profile: client1
+  config.activate.on-profile: client2
 client:
   id: "2"
 jms:
@@ -109,3 +111,5 @@ jms:
     orderStatus:
       Stuttgart: "stocks.c2.orderStatus.Stuttgart" # anycast
       Frankfurt: "stocks.c2.orderStatus.Frankfurt" # anycast
+server:
+  port: 8081

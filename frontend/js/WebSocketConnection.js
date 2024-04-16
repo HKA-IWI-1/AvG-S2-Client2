@@ -48,11 +48,6 @@ class WebSocketConnection {
             this.clientStatusBadge.classList.replace("bi-check-lg", "bi-exclamation-triangle")
             this.clientStatusBadge.innerHTML = "Not Connected";
         }
-        // this.clientStatus.addEventListener("click", (e) => {
-        //     this.stompClient.deactivate();
-        //     this.setConnected(false);
-        //     console.log("Disconnected");
-        // })
     }
 
     connect(clientId) {

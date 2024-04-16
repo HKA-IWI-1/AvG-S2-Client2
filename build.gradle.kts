@@ -66,11 +66,11 @@ tasks.named(
             """
             |
             |Call of executable JAR-file:
-            |Production:
-            |   java -jar build/libs/${project.name}-${project.version}.jar --spring.profiles.active=production
+            |Client 1:
+            |   java -jar build/libs/${project.name}-${project.version}.jar --spring.profiles.active=client1
             |
-            |Development:
-            |   java -jar build/libs/${project.name}-${project.version}.jar --spring.profiles.active=dev
+            |Client 2:
+            |   java -jar build/libs/${project.name}-${project.version}.jar --spring.profiles.active=client2
             """.trimMargin("|")
         )
     }
