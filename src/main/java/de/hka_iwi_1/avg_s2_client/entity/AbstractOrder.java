@@ -33,17 +33,17 @@ import java.util.UUID;
 public abstract class AbstractOrder {
 
     // created by client
-    private UUID id;
+    protected UUID id;
 
     @Value("${client.id}")
-    private int clientId;
+    protected int clientId;
 
-    private UUID exchangeId;
+    protected UUID exchangeId;
 
     // Regex: ^\b[A-NP-Z0-9]{6}\b$
-    private String wkn;
+    protected String wkn;
 
-    private int amount;
+    protected int amount;
 
-    private OrderStatusType status;
+    protected OrderStatusType status;
 }

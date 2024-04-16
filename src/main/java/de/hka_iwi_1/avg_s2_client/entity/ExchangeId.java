@@ -26,6 +26,7 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 public abstract class ExchangeId {
-    public static final UUID STUTTGART = UUID.fromString("");
-    public static final UUID FRANKFURT = UUID.fromString("");
+
+    public static final UUID STUTTGART = UUID.fromString("00000000-0000-0000-0000-000000000001");
+    public static final UUID FRANKFURT = UUID.fromString("00000000-0000-0000-0000-000000000002");
 }

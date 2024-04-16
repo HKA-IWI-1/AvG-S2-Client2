@@ -61,6 +61,10 @@ class OrderForm {
 
     handleFormSending() {
         if (!(this.exchangeSelector.value === '' || this.shareSelector.value === '' || this.amountSelector.value === '' || this.orderTypeSelector.value === '')) {
+            const orderWrapper = {
+                "buyOrder": null,
+                "sellOrder": null,
+            }
             const order = {
                 "id": crypto.randomUUID(),
                 "clientId": _clientId,
@@ -70,12 +74,17 @@ class OrderForm {
                 "status": "P",
                 "minPrice": null
             }
-
-            const method = this.orderTypeSelector.value === 'Buy' ? '/order/buy' : '/order/sell';
-
+            let method;
+            if (this.orderTypeSelector.value === 'Buy') {
+                method = '/order/buy';
+                orderWrapper.buyOrder = order;
+            } else {
+                method = '/order/sell';
+                orderWrapper.sellOrder = order;
+            }
             this.stompClient.publish({
                 destination: method,
-                body: JSON.stringify(order)
+                body: JSON.stringify(orderWrapper)
             });
         }
     }

@@ -48,18 +48,16 @@ public class OrderController {
     private final ObjectMapper mapper;
 
     @MessageMapping("/buy")
-    public void sendBuyOrder(final String orderString) throws JsonProcessingException {
-        var order = mapper.readValue(orderString, BuyOrder.class);
-        log.debug("sendBuyOrder: order={}", order);
-        sendOrder(OrderWrapper.builder().buyOrder(order).build());
+    public void sendBuyOrder(final OrderWrapper orderWrapper) throws JsonProcessingException {
+        log.debug("sendBuyOrder: orderWrapper={}", orderWrapper);
+        sendOrder(orderWrapper);
         publishOrders();
     }
 
     @MessageMapping("/sell")
-    public void sendSellOrder(final String orderString) throws JsonProcessingException {
-        var order = mapper.readValue(orderString, SellOrder.class);
-        log.debug("sendSellOrder: order={}", order);
-        sendOrder(OrderWrapper.builder().sellOrder(order).build());
+    public void sendSellOrder(final OrderWrapper orderWrapper) throws JsonProcessingException {
+        log.debug("sendSellOrder: orderWrapper={}", orderWrapper);
+        sendOrder(orderWrapper);
         publishOrders();
     }
 
@@ -81,7 +79,6 @@ public class OrderController {
      */
     @JmsListener(destination = "${jms.stocks.orderStatus.Stuttgart}")
     @JmsListener(destination = "${jms.stocks.orderStatus.Frankfurt}")
-    //todo: convert orderWrapperString automatically
     private void receiveOrderStatus(String orderWrapperString) throws JsonProcessingException {
         log.debug("receiveOrderStatus: orderWrapperString={}", orderWrapperString);
         var orderWrapper = mapper.readValue(orderWrapperString, OrderWrapper.class);
