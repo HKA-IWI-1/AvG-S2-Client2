@@ -19,23 +19,15 @@
 /*
 {
     "buyOrder": {
-        "id": null,
-        "clientId": 0,
-        "exchangeId": 0,
-        "wkn": 1,
-        "amount": 1,
-        "status": null,
+        "id": "bd2663bd-8dc6-4290-8758-8c0fe0768f60",
+        "clientId": 1,
+        "exchangeId": "38827a6b-b732-499d-9ab5-169b33918228",
+        "wkn": "111",
+        "amount": 111,
+        "status": "P",
         "maxPrice": null
     },
-    "sellOrder": {
-        "id": null,
-        "clientId": 0,
-        "exchangeId": 0,
-        "wkn": 1,
-        "amount": 0,
-        "status": null,
-        "minPrice": null
-    }
+    "sellOrder": null
 }
 */
 
