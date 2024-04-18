@@ -55,7 +55,7 @@ class Orders {
                     }
                     child.childNodes.forEach(
                         span => span.classList?.contains('status') ?
-                            span.innerText = order.status :
+                            span.innerText = "Status: " + order.status :
                             null
                     )
                 }

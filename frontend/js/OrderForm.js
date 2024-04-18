@@ -26,36 +26,34 @@ class OrderForm {
     stompClient;
 
     constructor(exchanges, stompClient) {
-        this.addExchanges(exchanges);
+        this.addExchangesAndShares(exchanges);
         this.button.addEventListener('click', () => {
             this.handleFormSending();
         });
         this.stompClient = stompClient;
     }
 
-    addExchanges(exchanges) {
+    addExchangesAndShares(exchanges) {
         exchanges.forEach(exchange => {
             const option = document.createElement('option');
             option.innerHTML = exchange.id;
             this.exchangeSelector.appendChild(option)
         });
-        document.getElementById('submitExchange').addEventListener('click', () => this.addShares(exchanges));
-    }
-
-    addShares(exchanges) {
-        this.exchangeSelector.setAttribute('disabled', "true");
-        exchanges.forEach(exchange => exchange.shares.forEach(share => {
-            if (this.exchangeSelector.value === exchange.id) {
-                this.shareSelector.innerHTML = "";
-                const option = document.createElement('option');
-                option.innerHTML = share.wkn;
-                this.shareSelector.appendChild(option);
-            }
-        }))
-        this.shareSelector.removeAttribute('disabled');
-        this.shareSelector.addEventListener('click', () => {
-            this.amountSelector.removeAttribute('disabled');
+        document.getElementById('submitExchange').addEventListener('click', () => {
+            this.shareSelector.innerHTML = "";
+            exchanges.forEach(exchange => {
+                if (exchange.id === this.exchangeSelector.value) {
+                    exchange.shares.forEach(share => {
+                        const option = document.createElement('option');
+                        option.innerHTML = share.wkn;
+                        this.shareSelector.appendChild(option);
+                    })
+                }
+            })
+            this.exchangeSelector.setAttribute('disabled', "true");
+            this.shareSelector.removeAttribute('disabled');
         });
+        this.shareSelector.addEventListener('click', () => this.amountSelector.removeAttribute('disabled'));
         this.amountSelector.addEventListener('click', () => this.orderTypeSelector.removeAttribute('disabled'));
     }
 
@@ -91,7 +89,7 @@ class OrderForm {
             this.orderTypeSelector.setAttribute('disabled', 'true');
             this.exchangeSelector.removeAttribute('disabled');
             this.shareSelector.value = undefined;
-            this.amountSelector.value = undefined;
+            this.amountSelector.value = 0;
             this.orderTypeSelector.value = undefined;
             this.exchangeSelector.value = undefined;
         }
