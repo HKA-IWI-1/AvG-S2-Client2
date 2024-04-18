@@ -39,9 +39,9 @@ class StockGraphs {
         this.stockGraphs = {};
         exchanges.forEach(exchange => {
             const exchangeHull = this.buildExchangeHull(exchange);
+            const graph = [];
             exchange.shares.forEach(
                 stock => {
-                    const graph = {};
                     graph[stock.wkn] = this.buildGraph(exchangeHull, stock);
                     this.stockGraphs[exchange.id] = graph;
                 }
