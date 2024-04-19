@@ -17,36 +17,24 @@
  *
  */
 
-package de.hka_iwi_1.avg_s2_client.webSocket;
+package de.hka_iwi_1.avg_s2_client;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.jms.annotation.JmsListener;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Controller;
+import jakarta.jms.ConnectionFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jms.annotation.EnableJms;
+import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 
-@Controller
-@Slf4j
-@RequiredArgsConstructor
-public class StockPriceController {
+@Configuration
+@EnableJms
+public class ActiveMQConfig {
 
-    public static final String exchange = "/exchange";
-
-    public static final String wsStockPrices = "/stockPrices";
-
-    private final SimpMessagingTemplate simpMessagingTemplate;
-
-    /**
-     * Handle the updated stock prices that we receive from the producer.
-     *
-     * @param jsonData Serialized JSON-String containing stock data.
-     */
-    @JmsListener(destination = "${jms.stocks.updates}", containerFactory = "topicJmsListenerContainerFactory")
-    public void receiveStockData(String jsonData) {
-        log.debug("receiveStockPrices: jsonData={}", jsonData);
-        simpMessagingTemplate.convertAndSend(
-                exchange + wsStockPrices,
-                jsonData
-        );
+    @Bean
+    public DefaultJmsListenerContainerFactory topicJmsListenerContainerFactory(ConnectionFactory connectionFactory) {
+        var factory = new DefaultJmsListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory);
+        factory.setPubSubDomain(true);
+        return factory;
     }
+
 }
