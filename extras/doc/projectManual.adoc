@@ -1,0 +1,52 @@
+//
+// Copyright (c) 2024 - present Florian Sauer
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+// documentation files (the “Software”), to deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+// permit persons to whom the Software is furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all copies or substantial portions
+// of the Software.
+//
+// THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+// LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+// IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+// SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//
+//
+
+= Project manual
+Florian Sauer <safl1011@h-ka.de>
+:doctype: book
+:toc: left
+:sectanchors:
+:sectlinks:
+:sectnums:
+:source-highlighter: coderay
+:icons: font
+
+// https://github.com/asciidoctor/asciidoctorj
+// https://github.com/asciidoctor/asciidoctor-diagram
+// http://de.plantuml.com/classes.html
+// http://de.plantuml.com/component.html
+// https://github.com/odrotbohm/asciidoctor-plantuml
+
+== The Server Client
+
+=== The server at a glance
+
+This server was created as part of a group work in our course AvG (Automatisierung von Geschaeftsprozessen, Automation of business processes).
+
+=== The WebSocket API
+
+The server provides (amongst other of APIs) a WebSocket API for sending messages to the frontend and receiving messages from the frontend.
+
+=== The Jakarta Messaging API
+
+the server also sends buy/sell orders to a message broker app and receives stock update messages from the same broker.
+
+=== The Business Logic
+
+The created orders get persisted inside of a service object. Incoming orders with updated status get merged with existing orders that have the same order id.
