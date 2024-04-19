@@ -19,12 +19,11 @@
 
 package de.hka_iwi_1.avg_s2_client.entity;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
 import java.util.UUID;
-import java.util.stream.Stream;
 
+/**
+ * Enum containing the IDs of the available exchanges.
+ */
 public abstract class ExchangeId {
 
     public static final UUID STUTTGART = UUID.fromString("00000000-0000-0000-0000-000000000001");

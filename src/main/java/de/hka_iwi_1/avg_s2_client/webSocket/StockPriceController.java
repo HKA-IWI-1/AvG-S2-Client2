@@ -25,13 +25,22 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+/**
+ * Class for handling incoming stock prices.
+ */
 @Controller
 @Slf4j
 @RequiredArgsConstructor
 public class StockPriceController {
 
+    /**
+     * Prefix for web socket API.
+     */
     public static final String exchange = "/exchange";
 
+    /**
+     * Path for publishing stock prices to WebSocket clients.
+     */
     public static final String wsStockPrices = "/stockPrices";
 
     private final SimpMessagingTemplate simpMessagingTemplate;

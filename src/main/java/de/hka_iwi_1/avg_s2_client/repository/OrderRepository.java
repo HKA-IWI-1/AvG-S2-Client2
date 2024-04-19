@@ -28,21 +28,36 @@ import java.util.UUID;
 
 import static de.hka_iwi_1.avg_s2_client.repository.DB.ORDERS;
 
+/**
+ * Repository for handling the database connection.
+ */
 @Repository
 @Slf4j
 public class OrderRepository {
 
-
+    /**
+     * Method for finding all orders inside the database.
+     * @return A collection containing all orders.
+     */
     public Collection<AbstractOrder> findAll() {
         log.debug("findAll");
         return ORDERS;
     }
 
+    /**
+     * Method for persisting an order.
+     * @param order The order that needs to be saved.
+     */
     public void persistOrder(AbstractOrder order) {
         log.debug("persistOrder: order={}", order);
         ORDERS.add(order);
     }
 
+    /**
+     * Method for finding an order for a given order id.
+     * @param orderId The id of the requested order.
+     * @return A list containing the found order. Or an empty list if no order was found.
+     */
     public Collection<AbstractOrder> findOrder(UUID orderId) {
         log.debug("findOrder: orderId={}", orderId);
         return ORDERS.stream().filter(existingOrder -> existingOrder.getId().equals(orderId)).toList();

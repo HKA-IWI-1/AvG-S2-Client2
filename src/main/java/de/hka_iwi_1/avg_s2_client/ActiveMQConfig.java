@@ -25,10 +25,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 
+/**
+ * Class for configuring the ActiveMQConfig connection.
+ */
 @Configuration
 @EnableJms
 public class ActiveMQConfig {
 
+    /**
+     * Creating a custom container factory for topics.
+     * @param connectionFactory The connection factory to be used.
+     * @return The custom container factory.
+     */
     @Bean
     public DefaultJmsListenerContainerFactory topicJmsListenerContainerFactory(ConnectionFactory connectionFactory) {
         var factory = new DefaultJmsListenerContainerFactory();

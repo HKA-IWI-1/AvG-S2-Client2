@@ -23,6 +23,9 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
+/**
+ * The sell order.
+ */
 @Getter
 @Setter
 @ToString
@@ -31,6 +34,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class SellOrder extends AbstractOrder {
 
+    /**
+     * The minimum price at which the order should be executed.
+     */
     private BigDecimal minPrice;
 
 }

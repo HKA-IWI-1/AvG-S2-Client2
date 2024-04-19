@@ -25,10 +25,17 @@ import org.springframework.context.annotation.Import;
 
 import static de.hka_iwi_1.avg_s2_client.Banner.*;
 
+/**
+ * Class with the main-method for the application, building upon Spring Boot.
+ */
 @SpringBootApplication
 @Import({ApplicationConfig.class})
 public class Application {
 
+    /**
+     * Main program for starting the microservice.
+     * @param args Potential additional arguments for the start of the microservice.
+     */
     public static void main(String... args) {
         final var app = new SpringApplication(Application.class);
         app.setBanner((environment, sourceClass, out) -> out.println(TEXT));

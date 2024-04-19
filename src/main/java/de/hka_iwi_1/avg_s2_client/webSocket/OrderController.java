@@ -32,13 +32,22 @@ import org.springframework.stereotype.Controller;
 
 import static de.hka_iwi_1.avg_s2_client.webSocket.StockPriceController.exchange;
 
+/**
+ * Class for handling incoming orders.
+ */
 @Controller
 @Slf4j
 @RequiredArgsConstructor
 public class OrderController {
 
+    /**
+     * Prefix for web socket API.
+     */
     public static final String orderPrefix = "/order";
 
+    /**
+     * Prefix for web socket API.
+     */
     public static final String receiveOrders = "/receiveOrders";
 
     private final OrderService orderService;
@@ -47,6 +56,13 @@ public class OrderController {
 
     private final ObjectMapper mapper;
 
+    /**
+     * Receive buy orders from WebSocket clients.
+     *
+     * @param orderWrapper The order wrapper containing a buy- or sell-order. Used a wrapper for convenient
+     *                     transportation and type handling.
+     * @throws JsonProcessingException Exception thrown if Jackson fails to convert the string into an object.
+     */
     @MessageMapping("/buy")
     public void sendBuyOrder(final OrderWrapper orderWrapper) throws JsonProcessingException {
         log.debug("sendBuyOrder: orderWrapper={}", orderWrapper);
@@ -54,6 +70,13 @@ public class OrderController {
         publishOrders();
     }
 
+    /**
+     * Receive sell orders from WebSocket clients.
+     *
+     * @param orderWrapper The order wrapper containing a buy- or sell-order. Used a wrapper for convenient
+     *                     transportation and type handling.
+     * @throws JsonProcessingException Exception thrown if Jackson fails to convert the string into an object.
+     */
     @MessageMapping("/sell")
     public void sendSellOrder(final OrderWrapper orderWrapper) throws JsonProcessingException {
         log.debug("sendSellOrder: orderWrapper={}", orderWrapper);
@@ -61,22 +84,12 @@ public class OrderController {
         publishOrders();
     }
 
-    /**
-     * Send an order to the exchange.
-     *
-     * @param orderWrapper The Sell and Buy Orders wrapped in one object.
-     */
     private void sendOrder(OrderWrapper orderWrapper) throws JsonProcessingException {
         log.debug("sendOrder: orderWrapper={}", orderWrapper);
         orderService.sendOrder(orderWrapper);
         publishOrders();
     }
 
-    /**
-     * Receive an order from the exchange.
-     *
-     * @param orderWrapperString The wrapped updated order.
-     */
     @JmsListener(destination = "${jms.stocks.orderStatus.Stuttgart}")
     @JmsListener(destination = "${jms.stocks.orderStatus.Frankfurt}")
     private void receiveOrderStatus(String orderWrapperString) throws JsonProcessingException {
@@ -86,6 +99,9 @@ public class OrderController {
         publishOrders();
     }
 
+    /**
+     * Receive requests for publishing all orders to WebsSocket clients.
+     */
     @MessageMapping("/all")
     public void publishOrders() {
         log.debug("publishOrders");

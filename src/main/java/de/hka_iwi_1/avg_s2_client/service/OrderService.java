@@ -33,16 +33,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+/**
+ * Service for handling orders.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class OrderService {
 
     @Value("${jms.stocks.newOrder.Stuttgart}")
-    String sendOrderSt;
+    private String sendOrderSt;
 
     @Value("${jms.stocks.newOrder.Frankfurt}")
-    String sendOrderF;
+    private String sendOrderF;
 
     private final OrderRepository repository;
 
@@ -50,6 +53,12 @@ public class OrderService {
 
     private final ObjectMapper mapper;
 
+    /**
+     * Method for sending order to the message broker.
+     *
+     * @param orderWrapper The object wrapping the buy/sell order.
+     * @throws JsonProcessingException Exception thrown when Jackson fails to convert the wrapper object into a string.
+     */
     public void sendOrder(OrderWrapper orderWrapper) throws JsonProcessingException {
         log.debug("sendOrder: orderWrapper={}", orderWrapper);
         var order = orderWrapper.getBuyOrder() == null ? orderWrapper.getSellOrder() : orderWrapper.getBuyOrder();
@@ -65,6 +74,10 @@ public class OrderService {
         repository.persistOrder(order);
     }
 
+    /**
+     * Method for updating the status of incoming order messages in the database.
+     * @param orderWrapper The wrapper object containing the sell/buy order.
+     */
     public void updateOrderStatus(OrderWrapper orderWrapper) {
         log.debug("updateOrderStatus: orderWrapper={}", orderWrapper);
         AbstractOrder orderFrontend = orderWrapper.getBuyOrder() != null ? orderWrapper.getBuyOrder() : orderWrapper.getSellOrder();
@@ -74,6 +87,10 @@ public class OrderService {
         }
     }
 
+    /**
+     * Method to request all orders from the database.
+     * @return Collection containing all orders.
+     */
     public Collection<AbstractOrder> getAll() {
         log.debug("getAll");
         return repository.findAll();

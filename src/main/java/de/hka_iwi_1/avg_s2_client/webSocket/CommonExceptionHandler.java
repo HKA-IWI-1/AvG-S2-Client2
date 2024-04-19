@@ -35,23 +35,25 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @Slf4j
 class CommonExceptionHandler {
 
+    /**
+     * Handle not found exception.
+     *
+     * @param ex The exception object.
+     */
     @ExceptionHandler
     @ResponseStatus(NOT_FOUND)
     void onNotFound(final NotFoundException ex) {
         log.debug("onNotFound: {}", ex.getMessage());
     }
 
+    /**
+     * Handle json processing exception.
+     *
+     * @param ex The exception object.
+     */
     @ExceptionHandler
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     void onJsonProcessingException(final JsonProcessingException ex) {
         log.debug("onJsonProcessingException: {}", ex.getMessage());
     }
-
-// todo: pfade ohne controller behandeln
-//    @ExceptionHandler(value = Exception.class)
-//    @ResponseStatus(NOT_FOUND)
-//    void onException(final Exception ex) {
-//        log.debug("onException: {}", ex.getMessage());
-//    }
-
 }

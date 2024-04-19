@@ -67,13 +67,22 @@ import lombok.*;
 import java.util.Collection;
 import java.util.UUID;
 
+/**
+ * The exchange at which orders can be bought/sold.
+ */
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
 public class Exchange {
 
+    /**
+     * The id of the order.
+     */
     private UUID id;
 
+    /**
+     * The list of available shares.
+     */
     private Collection<Share> shares;
 }

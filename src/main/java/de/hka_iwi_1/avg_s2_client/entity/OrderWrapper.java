@@ -35,6 +35,9 @@ package de.hka_iwi_1.avg_s2_client.entity;
 
 import lombok.*;
 
+/**
+ * Wrapper for buy/sell orders.
+ */
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -43,6 +46,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderWrapper {
+
     private BuyOrder buyOrder;
     private SellOrder sellOrder;
 }

@@ -24,10 +24,22 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.stream.Stream;
 
+/**
+ * Status of the order.
+ */
 public enum OrderStatusType {
 
+    /**
+     * Success
+     */
     SUCCESS("S"),
+    /**
+     * Error
+     */
     ERROR("E"),
+    /**
+     * Pending. Default value for new orders.
+     */
     PENDING("P");
 
     private final String value;
@@ -43,7 +55,7 @@ public enum OrderStatusType {
     }
 
     /**
-     * Konvertierung eines Strings in einen Enum-Wert.
+     * Converting a string into an enum value.
      */
     @JsonCreator
     public static OrderStatusType of(final String value) {

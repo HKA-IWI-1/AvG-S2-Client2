@@ -26,8 +26,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Class for faking the database.
+ */
 public class DB {
 
+    /**
+     * List containing all created orders.
+     */
     static final List<AbstractOrder> ORDERS;
 
     static {
