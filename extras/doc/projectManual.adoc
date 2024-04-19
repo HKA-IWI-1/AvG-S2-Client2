@@ -45,7 +45,7 @@ The server provides (amongst other of APIs) a WebSocket API for sending messages
 
 === The Jakarta Messaging API
 
-the server also sends buy/sell orders to a message broker app and receives stock update messages from the same broker.
+The server also sends buy/sell orders to a message broker app and receives stock update messages from the same broker.
 
 === The Business Logic
 
