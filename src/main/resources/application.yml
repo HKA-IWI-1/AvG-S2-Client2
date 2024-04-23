@@ -18,7 +18,7 @@
 
 ---
 server:
-  port: 8080
+  port: 8081
   address: 127.0.0.1 # in production environments use reverse proxy, e.g. apache or nginx
   error:
     whitelabel.enabled: false
@@ -29,6 +29,8 @@ spring:
     broker-url: tcp://127.0.0.1:61616
     user: artemis
     password: p
+client:
+  id: "2"
 logging:
   file:
     name: /tmp/application.log
@@ -61,7 +63,7 @@ jms:
       Stuttgart: "stocks.newOrder.Stuttgart" # anycast
       Frankfurt: "stocks.newOrder.Frankfurt" # anycast
     orderStatus: # todo remove
-      Stuttgart: "stocks.c1.orderStatus.Stuttgart" # anycast
+      Stuttgart: "stocks.c2.orderStatus.Stuttgart" # anycast
       Frankfurt: "stocks.c1.orderStatus.Frankfurt" # anycast
 ---
 # --------------------------------------------------------
@@ -83,33 +85,3 @@ logging:
     file: trace
   level:
     de.hka_iwi_1.avg_s2_client: trace
----
-# --------------------------------------------------------
-# P r o f i l e   " C l i e n t  1 "
-# --------------------------------------------------------
-spring:
-  config.activate.on-profile: client1
-client:
-  id: "1"
-jms:
-  stocks:
-    orderStatus:
-      Stuttgart: "stocks.c1.orderStatus.Stuttgart" # anycast
-      Frankfurt: "stocks.c1.orderStatus.Frankfurt" # anycast
-server:
-  port: 8080
----
-# --------------------------------------------------------
-# P r o f i l e   " C l i e n t  2"
-# --------------------------------------------------------
-spring:
-  config.activate.on-profile: client2
-client:
-  id: "2"
-jms:
-  stocks:
-    orderStatus:
-      Stuttgart: "stocks.c2.orderStatus.Stuttgart" # anycast
-      Frankfurt: "stocks.c2.orderStatus.Frankfurt" # anycast
-server:
-  port: 8081
