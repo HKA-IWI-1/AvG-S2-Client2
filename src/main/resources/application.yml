@@ -17,6 +17,8 @@
 #
 
 ---
+client:
+  id: "2"
 server:
   port: 8081
   address: 127.0.0.1 # in production environments use reverse proxy, e.g. apache or nginx
@@ -29,8 +31,6 @@ spring:
     broker-url: tcp://127.0.0.1:61616
     user: artemis
     password: p
-client:
-  id: "2"
 logging:
   file:
     name: /tmp/application.log
